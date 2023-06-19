@@ -31,6 +31,11 @@ propiedad value
 
     const onSubmit = (event)=>{
         event.preventDefault();
+        if(!username || !password || !email){
+            alert('Debe de llenar los campos del formulario');
+            return;
+        }
+
         //Vaciar los inputs y dejarlos con el estado de inicio que se encuentran el en metodo
         setUserForm(initialUserForm);
 
