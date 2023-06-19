@@ -23,15 +23,24 @@ propiedad value
         /*Creamos un elemento nuevo respetando la estructura y contenido que ya se pueda encontrar en el objero 
         userForm*/
         setUserForm({
-            ...UserForm,
+            ...userForm,
             [name]: value
         });
         console.log(target.value);
     }
 
+    const onSubmit = (event)=>{
+        event.preventDefault();
+        //Vaciar los inputs y dejarlos con el estado de inicio que se encuentran el en metodo
+        setUserForm(initialUserForm);
+
+        //Verificando que se esta enviando el objeto correctamente en el submit
+        console.log(userForm);
+    }
+
     return(<>
         <p>Formulario de usuario</p>
-        <form action="">
+        <form onSubmit={onSubmit}>
             <input type="text" className="form-control my-3 w-75" onChange={onInputChange} placeholder="User name" name="username" value={username}/>
             <input type="password" className="form-control my-3 w-75" onChange={onInputChange} placeholder="Password" name="password" value={password}/>
             <input type="email" className="form-control my-3 w-75" onChange={onInputChange} placeholder="Email" name="email" value={email}/>
