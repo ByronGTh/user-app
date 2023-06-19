@@ -6,7 +6,7 @@ const initialUserForm = {
     email: ''
 }
 
-export const UserForm = ()=>{
+export const UserForm = ({handlerAddUser})=>{
 
     
 /*Guardando los datos del los inputs de los formularios en los estados de react, mapeando los valores
@@ -36,11 +36,13 @@ propiedad value
             return;
         }
 
+        handlerAddUser(userForm);
+
         //Vaciar los inputs y dejarlos con el estado de inicio que se encuentran el en metodo
         setUserForm(initialUserForm);
 
         //Verificando que se esta enviando el objeto correctamente en el submit
-        console.log(userForm);
+        //console.log(userForm);
     }
 
     return(<>
