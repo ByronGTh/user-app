@@ -51,7 +51,7 @@ propiedad value
             <input type="text" className="form-control my-3 w-75" onChange={onInputChange} placeholder="User name" name="username" value={username}/>
             <input type="password" className="form-control my-3 w-75" onChange={onInputChange} placeholder="Password" name="password" value={password}/>
             <input type="email" className="form-control my-3 w-75" onChange={onInputChange} placeholder="Email" name="email" value={email}/>
-            <button type="submit" className="btn btn-success">Crear usuario</button>
+            <button type="submit" className="btn btn-success" onSubmit={onSubmit}>Crear usuario</button>
         </form>
     </>);
 }
