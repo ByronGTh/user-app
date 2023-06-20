@@ -25,6 +25,10 @@ export const UsersApp = () =>{
         );
     }
 
+    const handlerRemoveUser = (id) =>{
+        console.log(id);
+    }
+
     return(<div className="container my-4">
         <h2>User App</h2>
         <div className="row">
@@ -32,7 +36,7 @@ export const UsersApp = () =>{
                 <UserForm handlerAddUser={handlerAddUser}/>
             </div>
             <div className="col">
-                <UsersList users={users}/>
+                <UsersList users={users} handlerRemoveUser={handlerRemoveUser}/>
             </div>
         </div>
     </div>);
