@@ -1,12 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const initialUserForm = {
-    username: '',
-    password: '',
-    email: ''
-}
-
-export const UserForm = ({handlerAddUser})=>{
+export const UserForm = ({userSelected, initialUserForm, handlerAddUser})=>{
 
     
 /*Guardando los datos del los inputs de los formularios en los estados de react, mapeando los valores
@@ -17,6 +11,19 @@ propiedad value
 
     //De esta desestructuracion pasan al value de los inputs
     const{username, password, email} = userForm;
+
+    /*
+        Por medio de este useEffect() haremos que el formulario se poble de la informacion de la fila de la tabla
+        al tocar el boton de acutualizar debido a que estamos indicando en el corchete que cuando algo se encuentre
+        en el userSelected que nos dara como reultado un cambio de estado de vacio a tener informacion
+
+     */
+    useEffect(()=>{
+        setUserForm({
+            ...userSelected
+        })
+    },[userSelected]);
+
     const onInputChange = ({target})=>{
         //Destructuracion del target
         const{name, value} = target;
