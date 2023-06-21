@@ -38,7 +38,7 @@ propiedad value
 
     const onSubmit = (event)=>{
         event.preventDefault();
-        if(!username || !password || !email){
+        if(!username || (!password && id === 0) || !email){
             alert('Debe de llenar los campos del formulario');
             return;
         }
@@ -56,7 +56,7 @@ propiedad value
         <p>Formulario de usuario</p>
         <form onSubmit={onSubmit}>
             <input type="text" className="form-control my-3 w-75" onChange={onInputChange} placeholder="User name" name="username" value={username}/>
-            <input type="password" className="form-control my-3 w-75" onChange={onInputChange} placeholder="Password" name="password" value={password}/>
+            {id > 0 || <input type="password" className="form-control my-3 w-75" onChange={onInputChange} placeholder="Password" name="password" value={password}/>}
             <input type="email" className="form-control my-3 w-75" onChange={onInputChange} placeholder="Email" name="email" value={email}/>
             <button type="submit" className="btn btn-success" onSubmit={onSubmit}>{id > 0 ? 'Editar' : 'Crear nuevo usuario'}</button>
         </form>
