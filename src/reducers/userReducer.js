@@ -9,6 +9,9 @@ export const userReducer =(state=[], action)=>{
                     id: new Date().getTime()
                 }
             ];
+        
+        case 'RemoveUser':
+            return state.filter(user => user.id !== action.payload);
     
         default:
             return state;

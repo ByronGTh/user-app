@@ -26,7 +26,11 @@ export const UsersApp = () =>{
     }
 
     const handlerRemoveUser = (id) =>{
-        console.log(id);
+       // console.log(id);
+       dispatch({
+        type: 'RemoveUser',
+        payload: id
+       });
     }
 
     return(<div className="container my-4">
