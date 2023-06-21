@@ -59,7 +59,8 @@ export const UsersApp = () =>{
         <h2>User App</h2>
         <div className="row">
             <div className="col">
-                <UserForm handlerAddUser={handlerAddUser} initialUserForm={initialUserForm} userSelected={userSelected}/>
+                <UserForm handlerAddUser={handlerAddUser} initialUserForm={initialUserForm} 
+                userSelected={userSelected}/>
             </div>
             <div className="col">
                 {

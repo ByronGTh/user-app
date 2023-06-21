@@ -10,7 +10,7 @@ propiedad value
     const[userForm, setUserForm] =useState(initialUserForm);
 
     //De esta desestructuracion pasan al value de los inputs
-    const{username, password, email} = userForm;
+    const{id, username, password, email} = userForm;
 
     /*
         Por medio de este useEffect() haremos que el formulario se poble de la informacion de la fila de la tabla
@@ -58,7 +58,7 @@ propiedad value
             <input type="text" className="form-control my-3 w-75" onChange={onInputChange} placeholder="User name" name="username" value={username}/>
             <input type="password" className="form-control my-3 w-75" onChange={onInputChange} placeholder="Password" name="password" value={password}/>
             <input type="email" className="form-control my-3 w-75" onChange={onInputChange} placeholder="Email" name="email" value={email}/>
-            <button type="submit" className="btn btn-success" onSubmit={onSubmit}>Crear usuario</button>
+            <button type="submit" className="btn btn-success" onSubmit={onSubmit}>{id > 0 ? 'Editar' : 'Crear nuevo usuario'}</button>
         </form>
     </>);
 }
