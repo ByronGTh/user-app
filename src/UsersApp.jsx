@@ -3,6 +3,7 @@ import { LoginPage } from "./auth/pages/LoginPage";
 import { loginReducer } from "./auth/reducers/loginReducer";
 import Swal from "sweetalert2";
 import { UsersPage } from "./pages/UsersPage";
+import { Navbar } from "./components/layout/Navbar";
 
 /*Con el JSON.parse convirtiendo STRING a objeto
                     y
@@ -34,10 +35,22 @@ export const UsersApp = () =>{
         }
     }
 
+    /**
+     * Eliminando la session del navegador
+     */
+    const handlerLogout =()=>{
+        dispatch({
+            type: 'logout'
+        });
+        sessionStorage.removeItem('login');
+    }
     return(<>
         {
             login.isAuth
-                ? <UsersPage/>
+                ? (<>
+                    <Navbar login={login} handlerLogout={handlerLogout}/>
+                    <UsersPage/>
+                  </>)
                 : <LoginPage handlerLogin={handlerLogin}/>
         }
     </>);
