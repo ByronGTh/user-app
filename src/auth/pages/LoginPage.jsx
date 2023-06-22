@@ -6,7 +6,7 @@ const initialLoginForm = {
     password: ''
 }
 
-export const LoginPage = () => {
+export const LoginPage = ({handlerLogin}) => {
     const[loginForm, setLoginForm] = useState(initialLoginForm);
     const{username, password} = loginForm;
 
@@ -26,11 +26,8 @@ export const LoginPage = () => {
         }
 
         //TODO: Implementar uso de credenciales de login
-        if (username === 'admin' && password ==='12345') {
-            //TODO: handlerLogin();
-        } else {
-            Swal.fire('Error Login', 'Username o password invalidos', 'error');
-        }
+        handlerLogin({username, password});
+        
 
         setLoginForm(initialLoginForm);
     }
