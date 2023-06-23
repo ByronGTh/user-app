@@ -1,7 +1,8 @@
 import { useReducer } from "react";
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "../services/authService";
 import { loginReducer } from "../reducers/loginReducer";
 import Swal from "sweetalert2";
-import { loginUser } from "../services/authService";
 
 /*Con el JSON.parse convirtiendo STRING a objeto
                     y
@@ -17,6 +18,8 @@ const initialLogin = JSON.parse(sessionStorage.getItem('login')) || {
 export const useAuth = () => {
 
     const[login, dispatch] = useReducer(loginReducer, initialLogin);
+    const navigate = useNavigate();
+
     const handlerLogin = ({username, password}) => {
 
         //Separando la logica de como se realiza la autentificacion
@@ -32,6 +35,7 @@ export const useAuth = () => {
                 isAuth: true,
                 user
             }));
+            navigate('/users');
         } else {
             Swal.fire('Error Login', 'Username o password invalidos', 'error');
         }
