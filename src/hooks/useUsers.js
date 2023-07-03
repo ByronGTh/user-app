@@ -2,14 +2,7 @@ import { useReducer, useState } from "react";
 import { userReducer } from "../reducers/userReducer";
 import Swal from "sweetalert2";
 
-const initialUsers = [
-    {
-        id:1,
-        username: 'Skibidi Dop',
-        password: '12345s',
-        email: 'skibididop@correo.com'
-    }
-];
+const initialUsers = [];
 
 const initialUserForm = {
     id: 0,
