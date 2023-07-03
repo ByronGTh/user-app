@@ -23,6 +23,9 @@ export const userReducer =(state=[], action)=>{
                 }
                 return u;
             });
+
+        case 'cargandoUsuarios':
+            return action.payload;
     
         default:
             return state;
