@@ -1,6 +1,7 @@
 import { useReducer, useState } from "react";
 import { userReducer } from "../reducers/userReducer";
 import Swal from "sweetalert2";
+import { findAll } from "../services/userService";
 
 const initialUsers = [];
 
@@ -14,6 +15,14 @@ const initialUserForm = {
 export const useUsers = () => {
     const[users, dispatch] = useReducer(userReducer, initialUsers);
     const[userSelected, setUserSelected] = useState(initialUserForm);
+
+    const getUsers = async () => {
+        const result = await findAll();
+        dispatch({
+            type: 'cargandoUsuarios',
+            payload: result.data,
+        });
+    }
 
     const handlerAddUser=(user)=>{
         //console.log(user);
