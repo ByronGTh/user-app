@@ -34,7 +34,7 @@ propiedad value
             ...userForm,
             [name]: value
         });
-        console.log(target.value);
+        //console.log(target.value);
     }
 
     const onSubmit = (event)=>{

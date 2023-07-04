@@ -1,7 +1,7 @@
 import { useReducer, useState } from "react";
 import { userReducer } from "../reducers/userReducer";
 import Swal from "sweetalert2";
-import { findAll } from "../services/userService";
+import { findAll, remove, save, update } from "../services/userService";
 
 const initialUsers = [];
 
@@ -24,20 +24,24 @@ export const useUsers = () => {
         });
     }
 
-    const handlerAddUser=(user)=>{
+    const handlerAddUser = async(user) => {
         //console.log(user);
+
+        let response;
 
         let type;
         if (user.id ===0) {
             type = 'AddUser';
+            response = await save(user);
         }else{
             type = 'UpdateUser';
+            response = await update(user);
         }
 
         dispatch(
             {
                 type,
-                payload: user
+                payload: response.data
             }
         );
 
@@ -61,6 +65,7 @@ export const useUsers = () => {
         confirmButtonText: 'Yes, delete it!'
       }).then((result) => {
         if (result.isConfirmed) {
+            remove(id);
             dispatch({
                 type: 'RemoveUser',
                 payload: id

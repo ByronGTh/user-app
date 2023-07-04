@@ -13,7 +13,7 @@ export const findAll = async () =>{
 
 export const save = async ({ username, email, password }) => {
     try {
-        return axios.post(URL_BACKEND, {username, email, password});
+        return await axios.post(URL_BACKEND, {username, email, password});
     } catch (error) {
         console.error(error);
     }
@@ -22,7 +22,7 @@ export const save = async ({ username, email, password }) => {
 
 export const update = async ({ id, username, email }) => {
     try {
-        return axios.put(`${URL_BACKEND}/${id}`, { username, email });
+        return await axios.put(`${URL_BACKEND}/${id}`, { username, email });
     } catch (error) {
         console.error(error);
     }
