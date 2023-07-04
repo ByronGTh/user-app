@@ -86,6 +86,7 @@ export const useUsers = () => {
 
         handlerAddUser,
         handlerRemoveUser,
-        handlerUserSelectedForm
+        handlerUserSelectedForm,
+        getUsers
     };
 }
