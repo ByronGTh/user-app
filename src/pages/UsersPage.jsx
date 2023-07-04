@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { UserForm } from "../components/UserForm";
 import { UsersList } from "../components/UsersList";
 import { useUsers } from "../hooks/useUsers";
@@ -8,11 +9,16 @@ export const UsersPage = () =>{
         users,
         userSelected,
         initialUserForm,
+        getUsers,
 
         handlerAddUser,
         handlerRemoveUser,
         handlerUserSelectedForm
     } = useUsers();
+
+    useEffect(() =>{
+        getUsers();
+    }, []);
 
     return(<div className="container my-4">
         <h2>User App</h2>
