@@ -18,17 +18,15 @@ export const save = async ({ username, email, password }) => {
         throw error; //lanza o envia el error al useUsers
         //console.error(error);
     }
-    return undefined;
 }
 
 export const update = async ({ id, username, email }) => {
     try {
-        return await axios.put(`${URL_BACKEND}/${id}`, { username, email });
+        return await axios.put(`${URL_BACKEND}/${id}`, { username, email, password: 'vacio' });
     } catch (error) {
         throw error;
         //console.error(error);
     }
-    return undefined;
 }
 
 export const remove = async (id) => {

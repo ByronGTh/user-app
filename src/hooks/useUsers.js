@@ -34,13 +34,14 @@ export const useUsers = () => {
 
     const handlerAddUser = async (user) => {
         //console.log(user);
+        let response;
 
         //Capturando los valores del error con el try
         try {
 
 
 
-            let response;
+            
 
             let type;
             if (user.id === 0) {
@@ -63,11 +64,22 @@ export const useUsers = () => {
                 (user.id === 0) ? 'El usuario a sido creado con exito' : 'El usuario a sido actualizado con exito',
                 'success'
             )
+            //setUserSelected(initialUserForm);
+            setErrors({});
+            
+            //TODO: Validar limpieza del formulario
 
         } catch (error) {
             if (error.response && error.response.status == 400) {
                 setErrors(error.response.data);
-            } else {
+            }else if(error.response && error.response.status == 500 && error.response.data?.message?.includes('constraint')){
+                if (error.response.data?.message?.includes('username_UNIQUE')) {
+                    setErrors({username: 'El nombre de usuario ya esta registrado, favor escoger otro'})
+                }
+                if (error.response.data?.message?.includes('email_UNIQUE')) {
+                    setErrors({email: 'El correo electronico ya esta registrado, favor escoger otro'})
+                }
+            }else {
                 throw error;
             }
         }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
-export const UserForm = ({userSelected, initialUserForm, handlerAddUser, error})=>{
+export const UserForm = ({userSelected, initialUserForm, handlerAddUser, errors})=>{
 
     
 /*Guardando los datos del los inputs de los formularios en los estados de react, mapeando los valores
@@ -51,7 +51,7 @@ propiedad value
         handlerAddUser(userForm);
 
         //Vaciar los inputs y dejarlos con el estado de inicio que se encuentran el en metodo
-        setUserForm(initialUserForm);
+        //setUserForm(initialUserForm);
 
         //Verificando que se esta enviando el objeto correctamente en el submit
         //console.log(userForm);
@@ -61,8 +61,11 @@ propiedad value
         <p>Formulario de usuario</p>
         <form onSubmit={onSubmit}>
             <input type="text" className="form-control my-3 w-75" onChange={onInputChange} placeholder="User name" name="username" value={username}/>
+            <p className="text-danger">{errors?.username}</p>
             {id > 0 || <input type="password" className="form-control my-3 w-75" onChange={onInputChange} placeholder="Password" name="password" value={password}/>}
+            <p className="text-danger">{errors?.password}</p>
             <input type="email" className="form-control my-3 w-75" onChange={onInputChange} placeholder="Email" name="email" value={email}/>
+            <p className="text-danger">{errors?.email}</p>
             <button type="submit" className="btn btn-success" onSubmit={onSubmit}>{id > 0 ? 'Editar' : 'Crear nuevo usuario'}</button>
         </form>
     </>);

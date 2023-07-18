@@ -6,7 +6,6 @@ export const userReducer =(state=[], action)=>{
                 ...state,
                 {
                     ...action.payload,
-                    id: new Date().getTime()
                 }
             ];
         

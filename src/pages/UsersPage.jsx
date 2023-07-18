@@ -10,6 +10,7 @@ export const UsersPage = () =>{
         userSelected,
         initialUserForm,
         getUsers,
+        errors,
 
         handlerAddUser,
         handlerRemoveUser,
@@ -25,7 +26,7 @@ export const UsersPage = () =>{
         <div className="row">
             <div className="col">
                 <UserForm handlerAddUser={handlerAddUser} initialUserForm={initialUserForm} 
-                userSelected={userSelected}/>
+                userSelected={userSelected} errors={errors}/>
             </div>
             <div className="col">
                 {
