@@ -12,6 +12,7 @@ acturalizar la vista
 */
 const initialLogin = JSON.parse(sessionStorage.getItem('login')) || {
     isAuth: false,
+    isAdmin: false,
     user: undefined
 }
 
@@ -20,24 +21,34 @@ export const useAuth = () => {
     const[login, dispatch] = useReducer(loginReducer, initialLogin);
     const navigate = useNavigate();
 
-    const handlerLogin = ({username, password}) => {
+    const handlerLogin = async({username, password}) => {
 
         //Separando la logica de como se realiza la autentificacion
-        const isLogin = loginUser({username, password});
-
-        if (isLogin) {
-            const user = {username: 'admin'};
+        
+        try {
+            const response = await loginUser({username, password});
+            const token = response.data.token;
+            const claims = JSON.parse(window.atob(token.split(".")[1]));
+            const user = {username: response.data.username};
             dispatch({
                 type: 'login',
-                payload: user
+                payload: {user, isAdmin: claims.isAdmin}
             });
             sessionStorage.setItem('login', JSON.stringify({
                 isAuth: true,
+                isAdmin: claims.isAdmin,
                 user
             }));
+            sessionStorage.setItem('token', `Bearer ${token}`);
             navigate('/users');
-        } else {
-            Swal.fire('Error Login', 'Username o password invalidos', 'error');
+        } catch(error) {
+            if (error.response?.status == 401) {
+                Swal.fire('Error Login', 'Username o password invalidos', 'error');
+            } else if(error.response?.status == 403){
+                Swal.fire('Error Login', 'No cuenta con permisos para acceder al recurso solicitado!', 'error');
+            }else{
+                throw error;
+            }
         }
     }
 
@@ -48,7 +59,9 @@ export const useAuth = () => {
         dispatch({
             type: 'logout'
         });
+        sessionStorage.removeItem('token');
         sessionStorage.removeItem('login');
+        sessionStorage.clear;
     }
 
     return {
