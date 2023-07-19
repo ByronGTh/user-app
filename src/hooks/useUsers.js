@@ -2,6 +2,7 @@ import { useReducer, useState } from "react";
 import { userReducer } from "../reducers/userReducer";
 import Swal from "sweetalert2";
 import { findAll, remove, save, update } from "../services/userService";
+import { useAuth } from "../auth/hooks/useAuth";
 
 const initialUsers = [];
 
@@ -19,9 +20,8 @@ const initialErrors = {
     email: ''
 }
 
-const { login, handlerLogout } = useAuth();
-
 export const useUsers = () => {
+    const { login, handlerLogout } = useAuth();
     const [users, dispatch] = useReducer(userReducer, initialUsers);
     const [userSelected, setUserSelected] = useState(initialUserForm);
     const [errors, setErrors] = useState(initialErrors);
