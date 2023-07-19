@@ -19,6 +19,8 @@ const initialErrors = {
     email: ''
 }
 
+const { login, handlerLogout } = useAuth();
+
 export const useUsers = () => {
     const [users, dispatch] = useReducer(userReducer, initialUsers);
     const [userSelected, setUserSelected] = useState(initialUserForm);
@@ -79,6 +81,8 @@ export const useUsers = () => {
                 if (error.response.data?.message?.includes('email_UNIQUE')) {
                     setErrors({email: 'El correo electronico ya esta registrado, favor escoger otro'})
                 }
+            }else if(error.response?.status == 401){
+                    handlerLogout();
             }else {
                 throw error;
             }
@@ -96,18 +100,25 @@ export const useUsers = () => {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
+        }).then( async(result) => {
             if (result.isConfirmed) {
-                remove(id);
-                dispatch({
-                    type: 'RemoveUser',
-                    payload: id
-                });
-                Swal.fire(
-                    'Usuario eliminado!',
-                    'Usuario eliminado con exito.',
-                    'success'
-                )
+                try {
+                   await remove(id);
+                    dispatch({
+                        type: 'RemoveUser',
+                        payload: id
+                    });
+                    Swal.fire(
+                        'Usuario eliminado!',
+                        'Usuario eliminado con exito.',
+                        'success'
+                    );
+                    
+                } catch (error) {
+                    if(error.response?.status == 401){
+                        handlerLogout();
+                    }
+                }
             }
         })
     }
