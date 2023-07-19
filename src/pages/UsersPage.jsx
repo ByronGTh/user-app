@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { UserForm } from "../components/UserForm";
 import { UsersList } from "../components/UsersList";
 import { useUsers } from "../hooks/useUsers";
+import { useAuth } from "../auth/hooks/useAuth";
 
 export const UsersPage = () =>{
 
@@ -17,6 +18,8 @@ export const UsersPage = () =>{
         handlerUserSelectedForm
     } = useUsers();
 
+    const { login } = useAuth();
+
     useEffect(() =>{
         getUsers();
     }, []);
@@ -24,10 +27,11 @@ export const UsersPage = () =>{
     return(<div className="container my-4">
         <h2>User App</h2>
         <div className="row">
+        {!login.isAdmin ||
             <div className="col">
                 <UserForm handlerAddUser={handlerAddUser} initialUserForm={initialUserForm} 
                 userSelected={userSelected} errors={errors}/>
-            </div>
+            </div>}
             <div className="col">
                 {
                     users.length === 0 ?
