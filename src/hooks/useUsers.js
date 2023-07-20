@@ -3,6 +3,8 @@ import { userReducer } from "../reducers/userReducer";
 import Swal from "sweetalert2";
 import { findAll, remove, save, update } from "../services/userService";
 import { useAuth } from "../auth/hooks/useAuth";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser, removeUser, updateUser, loadingUsers } from "../store/slices/users/usersSlice";
 
 const initialUsers = [];
 
@@ -23,16 +25,17 @@ const initialErrors = {
 
 export const useUsers = () => {
     const { login, handlerLogout } = useAuth();
-    const [users, dispatch] = useReducer(userReducer, initialUsers);
+
+    const {users} = useSelector( state => state.users );
+    //const [users, dispatch] = useReducer(userReducer, initialUsers);
+    const dispatch = useDispatch();
+
     const [userSelected, setUserSelected] = useState(initialUserForm);
     const [errors, setErrors] = useState(initialErrors);
 
     const getUsers = async () => {
         const result = await findAll();
-        dispatch({
-            type: 'cargandoUsuarios',
-            payload: result.data,
-        });
+        dispatch (loadingUsers(result.data) );
     }
 
     const handlerAddUser = async (user) => {
@@ -42,25 +45,16 @@ export const useUsers = () => {
         //Capturando los valores del error con el try
         try {
 
-
-
-            
-
             let type;
             if (user.id === 0) {
                 type = 'AddUser';
                 response = await save(user);
+                dispatch(addUser( response.data ));
             } else {
                 type = 'UpdateUser';
                 response = await update(user);
+                dispatch( updateUser( response.data ) );
             }
-
-            dispatch(
-                {
-                    type,
-                    payload: response.data
-                }
-            );
 
             Swal.fire(
                 (user.id === 0) ? 'Usuario creado' : 'Usuario actualizado',
@@ -105,10 +99,7 @@ export const useUsers = () => {
             if (result.isConfirmed) {
                 try {
                    await remove(id);
-                    dispatch({
-                        type: 'RemoveUser',
-                        payload: id
-                    });
+                   dispatch( removeUser( id ) );
                     Swal.fire(
                         'Usuario eliminado!',
                         'Usuario eliminado con exito.',
