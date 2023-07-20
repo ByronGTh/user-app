@@ -13,8 +13,8 @@ export const UsersList = ({handlerUserSelectedForm, handlerRemoveUser, users})=>
                 </tr>
             </thead>
             <tbody>
-                {users.map(({id, username, password, email})=>(
-                    <UserRow key={id} id={id} username={username} password={password} email={email} 
+                {users.map(({id, username, password, email, admin})=>(
+                    <UserRow key={id} id={id} username={username} password={password} email={email} admin={admin} 
                     handlerRemoveUser={handlerRemoveUser} handlerUserSelectedForm={handlerUserSelectedForm}/>
                 ))}
             </tbody>

@@ -21,18 +21,18 @@ export const findAll = async () =>{
     return null;
 }
 
-export const save = async ({ username, email, password }) => {
+export const save = async ({ username, email, password, admin }) => {
     try {
-        return await axios.post(URL_BACKEND, {username, email, password}, config());
+        return await axios.post(URL_BACKEND, {username, email, password, admin}, config());
     } catch (error) {
         throw error; //lanza o envia el error al useUsers
         //console.error(error);
     }
 }
 
-export const update = async ({ id, username, email }) => {
+export const update = async ({ id, username, email, admin }) => {
     try {
-        return await axios.put(`${URL_BACKEND}/${id}`, { username, email, password: 'vacio' }, config());
+        return await axios.put(`${URL_BACKEND}/${id}`, { username, email, admin }, config());
     } catch (error) {
         throw error;
         //console.error(error);

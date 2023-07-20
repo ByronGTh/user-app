@@ -10,7 +10,8 @@ const initialUserForm = {
     id: 0,
     username: '',
     password: '',
-    email: ''
+    email: '',
+    admin: false
 }
 
 //Almacenara los errores enviados por en userService en formato JSON
