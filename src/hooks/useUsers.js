@@ -4,9 +4,9 @@ import Swal from "sweetalert2";
 import { findAll, remove, save, update } from "../services/userService";
 import { useAuth } from "../auth/hooks/useAuth";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser, removeUser, updateUser, loadingUsers } from "../store/slices/users/usersSlice";
+import { initialUserForm, addUser, removeUser, updateUser, loadingUsers, onUserSelectedForm } from "../store/slices/users/usersSlice";
 
-const initialUsers = [];
+/*const initialUsers = [];
 
 const initialUserForm = {
     id: 0,
@@ -14,24 +14,24 @@ const initialUserForm = {
     password: '',
     email: '',
     admin: false
-}
+}*/
 
 //Almacenara los errores enviados por en userService en formato JSON
-const initialErrors = {
+/*const initialErrors = {
     username: '',
     password: '',
     email: ''
-}
+}*/
 
 export const useUsers = () => {
     const { login, handlerLogout } = useAuth();
 
-    const {users} = useSelector( state => state.users );
+    const {users, userSelected} = useSelector( state => state.users );
     //const [users, dispatch] = useReducer(userReducer, initialUsers);
     const dispatch = useDispatch();
 
-    const [userSelected, setUserSelected] = useState(initialUserForm);
-    const [errors, setErrors] = useState(initialErrors);
+    //const [userSelected, setUserSelected] = useState(initialUserForm);
+    //const [errors, setErrors] = useState(initialErrors);
 
     const getUsers = async () => {
         const result = await findAll();
@@ -117,7 +117,8 @@ export const useUsers = () => {
 
     const handlerUserSelectedForm = (user) => {
         //console.log(user);
-        setUserSelected({ ...user });
+        //setUserSelected({ ...user });
+        dispatch( onUserSelectedForm( { ...user } ) );
     }
 
     return {
