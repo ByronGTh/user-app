@@ -1,6 +1,9 @@
+import { useUsers } from "../hooks/useUsers";
 import { UserRow } from "./UserRow";
 
-export const UsersList = ({handlerUserSelectedForm, handlerRemoveUser, users})=>{
+export const UsersList = ()=>{ //QUITADO de argumentos del componente {handlerUserSelectedForm, handlerRemoveUser, users}
+    
+    const { users } = useUsers();
     return(<>
         <p>Lista de usuarios</p>
         <table className="table table-striped table-hover">

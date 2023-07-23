@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Swal from "sweetalert2";
+import { useUsers } from "../hooks/useUsers";
 
 export const UserForm = ({userSelected, initialUserForm, handlerAddUser, errors})=>{
 
@@ -21,9 +21,12 @@ propiedad value
         en el userSelected que nos dara como reultado un cambio de estado de vacio a tener informacion
 
      */
+
+    //const {initialUserForm, handlerAddUser, errors} = useUsers(); //AGREGAR LUEGO ESTO SI NOS DA ERROR AL EJECUTAR FRONTED
     useEffect(()=>{
         setUserForm({
-            ...userSelected
+            ...userSelected,
+            password: '' //QUITAR ESTO, SE DEJO YA QUE LO VI EN EL VIDEO DE EJEMPLO PERO COMO LO TENIA NO ESTABA
         })
     },[userSelected]);
 

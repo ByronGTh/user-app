@@ -1,7 +1,10 @@
-export const UserRow = ({handlerUserSelectedForm, handlerRemoveUser, id, username, password, email, admin}) =>{
+import { useUsers } from "../hooks/useUsers";
+
+export const UserRow = ({id, username, password, email, admin}) =>{ //Quitados handlerUserSelectedForm, handlerRemoveUser
 
     //TODO: eliminar password de los props
 
+    const { handlerUserSelectedForm, handlerRemoveUser } = useUsers();
     return(
         <tr>
             <td>{username}</td>
