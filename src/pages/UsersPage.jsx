@@ -8,10 +8,10 @@ export const UsersPage = () =>{
 
     const {
         users,
-        userSelected,
-        initialUserForm,
+        userSelected, //NO
+        initialUserForm, //NO
         getUsers,
-        errors,
+        errors, //NO
 
         handlerAddUser,
         handlerRemoveUser,

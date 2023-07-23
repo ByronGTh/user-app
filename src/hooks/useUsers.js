@@ -1,10 +1,8 @@
-import { useReducer, useState } from "react";
-import { userReducer } from "../reducers/userReducer";
 import Swal from "sweetalert2";
 import { findAll, remove, save, update } from "../services/userService";
 import { useAuth } from "../auth/hooks/useAuth";
 import { useDispatch, useSelector } from "react-redux";
-import { initialUserForm, addUser, removeUser, updateUser, loadingUsers, onUserSelectedForm } from "../store/slices/users/usersSlice";
+import { initialUserForm, addUser, removeUser, updateUser, loadingUsers, onUserSelectedForm, loadingError } from "../store/slices/users/usersSlice";
 
 /*const initialUsers = [];
 
@@ -26,7 +24,7 @@ const initialUserForm = {
 export const useUsers = () => {
     const { login, handlerLogout } = useAuth();
 
-    const {users, userSelected} = useSelector( state => state.users );
+    const {users, userSelected, errors} = useSelector( state => state.users );
     //const [users, dispatch] = useReducer(userReducer, initialUsers);
     const dispatch = useDispatch();
 
@@ -62,19 +60,19 @@ export const useUsers = () => {
                 'success'
             )
             //setUserSelected(initialUserForm);
-            setErrors({});
+            dispatch( loadingError( {} ) );
             
             //TODO: Validar limpieza del formulario
 
         } catch (error) {
             if (error.response && error.response.status == 400) {
-                setErrors(error.response.data);
+                dispatch( loadingError(error.response.data) );
             }else if(error.response && error.response.status == 500 && error.response.data?.message?.includes('constraint')){
                 if (error.response.data?.message?.includes('username_UNIQUE')) {
-                    setErrors({username: 'El nombre de usuario ya esta registrado, favor escoger otro'})
+                    dispatch( loadingError({username: 'El nombre de usuario ya esta registrado, favor escoger otro'}) );
                 }
                 if (error.response.data?.message?.includes('email_UNIQUE')) {
-                    setErrors({email: 'El correo electronico ya esta registrado, favor escoger otro'})
+                    dispatch( loadingError({email: 'El correo electronico ya esta registrado, favor escoger otro'}) );
                 }
             }else if(error.response?.status == 401){
                     handlerLogout();
